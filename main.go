@@ -19,7 +19,7 @@ import (
 	"syscall"
 )
 
-const conexao = "user=postgres dbname=transportador password= host=postgresGo port=5432 sslmode=disabled"
+const conexao = "user=postgres dbname=transportador password= host=postgresGo sslmode=disable"
 
 func main() {
 	var httpAddr = flag.String("http", ":8080", "http listen address")
