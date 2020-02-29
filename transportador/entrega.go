@@ -8,6 +8,8 @@ import (
 type Entrega struct {
 	PedidoID int `json:"pedidoId,omitempty"`
 
+	NumeroEntrega string `json:"numeroEntrega"`
+
 	DataParaBusca time.Time `json:"dataParaBusca"`
 
 	PrevisaoParaEntrega time.Time `json:"previsaoParaEntrega"`

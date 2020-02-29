@@ -24,10 +24,10 @@ func NewRepo(db *sql.DB, logger log.Logger) Repository {
 
 func (repo *repo) CriarEntrega(ctx context.Context, entrega Entrega) error {
 	sql := `
-		INSERT INTO Entrega ( IdPedido, DataParaBusca, PrevisaoParaEntrega, EnderecoOrigem, EnderecoDestino, CreatedAt, UpdatedAt )
+		INSERT INTO Entrega ( IdPedido, NumeroEntrega, DataParaBusca, PrevisaoParaEntrega, EnderecoOrigem, EnderecoDestino, CreatedAt, UpdatedAt )
 		VALUES ($1, $2, $3, $4, $5, NOW(), NOW())`
 
-	_, err := repo.db.ExecContext(ctx, sql, entrega.PedidoID, entrega.DataParaBusca, entrega.PrevisaoParaEntrega, entrega.EnderecoOrigem, entrega.EnderecoDestino)
+	_, err := repo.db.ExecContext(ctx, sql, entrega.PedidoID, entrega.NumeroEntrega, entrega.DataParaBusca, entrega.PrevisaoParaEntrega, entrega.EnderecoOrigem, entrega.EnderecoDestino)
 	if err != nil {
 		return err
 	}

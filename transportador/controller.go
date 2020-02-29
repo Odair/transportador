@@ -5,6 +5,8 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
+
+	"github.com/google/uuid"
 )
 
 type service struct {
@@ -30,12 +32,16 @@ func (s service) CriarEntrega(ctx context.Context, entregaParam Entrega) (string
 		EnderecoDestino:     entregaParam.EnderecoDestino,
 	}
 
+	entrega.NumeroEntrega = guuid.New()
+
 	if err := s.repostory.CriarEntrega(ctx, entrega); err != nil {
 		level.Error(logger).Log("err", err)
 		return "", err
 	}
 
-	logger.Log("criar entrega")
+	logger.Log("criou entrega")
+
+	voucher := Voucher{NumeroEntrega: entrega.NumeroEntrega}
 
 	return "Success", nil
 }
