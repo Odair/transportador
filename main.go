@@ -19,7 +19,21 @@ import (
 	"syscall"
 )
 
-const conexao = "user=postgres-dev dbname=dev password=senha host=transportadorDb sslmode=disable"
+const (
+	DbHost     = "db"
+	DbUser     = "postgres-dev"
+	DbPassword = "mysecretpassword"
+	DbName     = "dev"
+	Migration  = `CREATE TABLE IF NOT EXISTS Entrega (
+		IdEntrega serial PRIMARY KEY,
+		IdPedido int NOT NULL,
+		DataParaBusca timestamp,
+		PrevisaoParaEntrega timestamp,
+		EnderecoOrigem text,
+		EnderecoDestino text,
+		CreatedAt timestamp with time zone DEFAULT current_timestamp,
+		UpdatedAt timestamp)`
+)
 
 func main() {
 	var httpAddr = flag.String("http", ":8080", "http listen address")
@@ -41,10 +55,19 @@ func main() {
 	{
 		var err error
 
+		conexao := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", DbHost, DbUser, DbPassword, DbName)
 		db, err = sql.Open("postgres", conexao)
 		if err != nil {
 			level.Error(logger).Log("exit", err)
 			os.Exit(-1)
+		}
+
+		defer db.Close()
+
+		_, err = db.Query(Migration)
+		if err != nil {
+			level.Info(logger).Log("msg", "migration failed "+err.Error())
+			return
 		}
 
 	}

@@ -1,22 +1,23 @@
 version: '3'
 
 services:
+
     db:
         container_name: transportadorDb
         image: postgres
-        hostname: db
-        environment: 
+        environment:
             GET_HOST_FROM: dns
             POSTGRES_DB: dev
             POSTGRES_USER: postgres-dev
-            POSTGRES_PASSWORD: senha
-        ports: 
-        - 5432:5432
+            POSTGRES_PASSWORD: mysecretpassword
+        ports:
+            - 5432:5432
         networks: 
-        - transportador
+            - transportador
+        
     app:
         container_name: transportadorApp
-        image: loga/transportador:v1
+        image: loja/transportador:v1
         hostname: transportador
         build:
             context: .
