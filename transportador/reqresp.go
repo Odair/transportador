@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+
 )
 
 type (
@@ -11,7 +12,7 @@ type (
 		Entrega Entrega
 	}
 	CriarEntregaResponse struct {
-		Ok string `json:"ok"`
+		Voucher Voucher 
 	}
 )
 

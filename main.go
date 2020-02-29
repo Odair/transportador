@@ -6,27 +6,26 @@ import (
 	"flag"
 	"fmt"
 	"transportador/transportador"
-
-	_ "github.com/lib/pq"
-
-	"github.com/go-kit/kit/log"
-
-	"github.com/go-kit/kit/log/level"
-
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+
+	_ "github.com/lib/pq"
+	"github.com/go-kit/kit/log"
+	"github.com/go-kit/kit/log/level"
+
 )
 
 const (
-	DbHost     = "db"
+	DbHost     = "192.168.99.100"
 	DbUser     = "postgres-dev"
 	DbPassword = "mysecretpassword"
 	DbName     = "dev"
 	Migration  = `CREATE TABLE IF NOT EXISTS Entrega (
 		IdEntrega serial PRIMARY KEY,
 		IdPedido int NOT NULL,
+		NumeroEntrega text,
 		DataParaBusca timestamp,
 		PrevisaoParaEntrega timestamp,
 		EnderecoOrigem text,

@@ -2,11 +2,14 @@ package transportador
 
 import (
 	"time"
+
+	"github.com/google/uuid"
+
 )
 
 type Voucher struct{
 
-	NumeroEntrega int `json:"numeroEntrega"`
+	NumeroEntrega uuid.UUID `json:"numeroEntrega"`
 
-	PrevisaoParaEntrega time.time `json:"previsaoParaEntrega"`
+	PrevisaoParaEntrega time.Time `json:"previsaoParaEntrega"`
 }

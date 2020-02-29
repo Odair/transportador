@@ -3,12 +3,15 @@ package transportador
 import (
 	"context"
 	"time"
+
+	"github.com/google/uuid"
+
 )
 
 type Entrega struct {
 	PedidoID int `json:"pedidoId,omitempty"`
 
-	NumeroEntrega string `json:"numeroEntrega"`
+	NumeroEntrega uuid.UUID `json:"numeroEntrega"`
 
 	DataParaBusca time.Time `json:"dataParaBusca"`
 

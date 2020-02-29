@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/go-kit/kit/endpoint"
+
 )
 
 type Endpoints struct {
@@ -19,7 +20,7 @@ func MakeEndpoints(s Service) Endpoints {
 func makeCriarEntregaEndpoint(s Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(CriarEntregaRequest)
-		ok, err := s.CriarEntrega(ctx, req.Entrega)
-		return CriarEntregaResponse{Ok: ok}, err
+		voucher, err := s.CriarEntrega(ctx, req.Entrega)
+		return CriarEntregaResponse{voucher}, err
 	}
 }
