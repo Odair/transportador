@@ -15,13 +15,11 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 
+	"github.com/joho/godotenv"
+
 )
 
 const (
-	DbHost     = "192.168.99.100"
-	DbUser     = "postgres-dev"
-	DbPassword = "mysecretpassword"
-	DbName     = "dev"
 	Migration  = `CREATE TABLE IF NOT EXISTS Entrega (
 		IdEntrega serial PRIMARY KEY,
 		IdPedido int NOT NULL,
@@ -47,6 +45,12 @@ func main() {
 		)
 	}
 
+	e := godotenv.Load();
+
+	if e != nil {
+		fmt.Println(e)
+	}
+
 	level.Info(logger).Log("msg", "service started")
 	defer level.Info(logger).Log("msg", "service ended")
 
@@ -54,7 +58,7 @@ func main() {
 	{
 		var err error
 
-		conexao := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", DbHost, DbUser, DbPassword, DbName)
+		conexao := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", os.Getenv("DbHost"),os.Getenv("DbUser"), os.Getenv("DbPassword"), os.Getenv("DbName"))
 		db, err = sql.Open("postgres", conexao)
 		if err != nil {
 			level.Error(logger).Log("exit", err)
