@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transportador-deployment
+  labels:
+    app: app-transportador-deployment
+spec:
+  selector:
+    matchLabels:
+      app: app-transportador-pod
+  template:
+    metadata:
+      labels:
+        app: app-transportador-pod
+    spec:
+      containers:
+        - name: container-transportador
+          image: odadtba/transportador:v1
+          ports:
+            - containerPort: 80
+          env:
+            - name: DbHost
+              value: "dbpostgres"
+            - name: DbUser
+              value: "postgres"
+            - name: DbPassword
+              value: "mysecretpassword"
+            - name: DbName
+              value: "transportadorDb"

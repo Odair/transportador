@@ -2,12 +2,12 @@ version: '3'
 
 services:
 
-    db:
+    dbpost:
         container_name: transportadorDb
         image: postgres
         environment:
             GET_HOST_FROM: dns
-            POSTGRES_DB: dev
+            POSTGRES_DB: transportadorDb
             POSTGRES_USER: postgres-dev
             POSTGRES_PASSWORD: mysecretpassword
         ports:
@@ -31,9 +31,9 @@ services:
         ports: 
         - 8080:8080
         depends_on: 
-        - db
+        - dbpost
         links: 
-        - db
+        - dbpost
         labels: 
             kompose.service.type: LoadBalancer
 
